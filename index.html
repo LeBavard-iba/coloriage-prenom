@@ -85,6 +85,8 @@ function boutons(){
   $("themes").querySelectorAll("button").forEach(b=>b.onclick=()=>{theme=b.dataset.t;boutons();rendre();compter("theme-"+theme);});
 }
 const p = new URLSearchParams(location.search).get("prenom"); if (p) $("prenom").value = p;
+// On retire aussitôt le prénom de l'adresse : il ne doit jamais partir vers le compteur d'audience.
+if (location.search) { try { history.replaceState(null, "", location.pathname); } catch(e) {} }
 $("prenom").addEventListener("input", rendre);
 boutons();
 (document.fonts ? document.fonts.load('40px "Lucky"') : Promise.resolve()).then(rendre);
